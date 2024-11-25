@@ -6,9 +6,8 @@ export function createLoan() {
 			return monthlyLoanPayment;
 		},
 
-		calculateMonthlyPayment: (amount, annualRate, years) => {
+		updateMonthlyPayment: (amount, annualRate, years) => {
 			if (amount !== null && annualRate !== null && years !== null) {
-				console.log(annualRate);
 				const monthlyRate = annualRate / 100 / 12;
 				const totalPayments = years * 12;
 				monthlyLoanPayment = Math.round(
@@ -20,3 +19,21 @@ export function createLoan() {
 }
 
 export const loan = createLoan();
+
+export function createTaxes() {
+	let taxes = $state(0);
+
+	return {
+		get taxes() {
+			return taxes;
+		},
+
+		updateTaxes(rent, taxesRate) {
+			if (rent !== null && taxesRate !== null) {
+				taxes = rent * (taxesRate / 100);
+			}
+		}
+	};
+}
+
+export const taxes = createTaxes();

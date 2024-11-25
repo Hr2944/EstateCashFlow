@@ -6,7 +6,7 @@
 	let loanDuration = $state(25);
 
 	$effect(() => {
-		loan.calculateMonthlyPayment(loanAmount, annualInterestRate, loanDuration);
+		loan.updateMonthlyPayment(loanAmount, annualInterestRate, loanDuration);
 	});
 </script>
 
