@@ -30,7 +30,7 @@ export function createTaxes() {
 
 		updateTaxes(rent, taxesRate) {
 			if (rent !== null && taxesRate !== null) {
-				taxes = rent * (taxesRate / 100);
+				taxes = (rent / 2) * (taxesRate / 100);
 			}
 		}
 	};
