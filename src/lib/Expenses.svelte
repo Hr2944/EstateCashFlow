@@ -9,7 +9,7 @@
 		rent
 	} = $props();
 
-	let taxesRate = $state(9.65);
+	let taxesRate = $state(43.63);
 
 	$effect(() => {
 		taxes.updateTaxes(rent, taxesRate);
