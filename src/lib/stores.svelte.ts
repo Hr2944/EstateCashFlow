@@ -1,3 +1,5 @@
+import type { Expenses, Unit } from '$lib/types';
+
 export function createLoan() {
 	let monthlyLoanPayment = $state(0);
 
@@ -6,7 +8,7 @@ export function createLoan() {
 			return monthlyLoanPayment;
 		},
 
-		updateMonthlyPayment: (amount, annualRate, years) => {
+		updateMonthlyPayment: (amount: number, annualRate: number, years: number) => {
 			if (amount !== null && annualRate !== null && years !== null) {
 				const monthlyRate = annualRate / 100 / 12;
 				const totalPayments = years * 12;
@@ -20,20 +22,58 @@ export function createLoan() {
 
 export const loan = createLoan();
 
-export function createTaxes() {
-	let taxes = $state(0);
+export function createRent() {
+	let rent = $state(0);
 
 	return {
-		get taxes() {
-			return taxes;
+		get rent() {
+			return rent;
 		},
 
-		updateTaxes(rent, taxesRate) {
-			if (rent !== null && taxesRate !== null) {
-				taxes = ((rent / 2) * (taxesRate / 100)) / 2;
-			}
+		updateRent(units: Unit[]) {
+			rent = units.reduce((sum, unit) => sum + unit.rent, 0);
 		}
 	};
 }
 
-export const taxes = createTaxes();
+export const rent = createRent();
+
+function calculateTaxes(rent: number, rate: number) {
+	return ((rent / 2) * (rate / 100)) / 2;
+}
+
+export function createExpenses() {
+	let expenses: Expenses = $state({
+		maintenance: 0,
+		insurance: 0,
+		replacementReserve: 0,
+		taxes: 0,
+		vacancyPercentage: 0
+	});
+
+	return {
+		get expenses() {
+			return expenses;
+		},
+
+		updateExpenses(
+			rent: number,
+			taxesRate: number,
+			maintenance: number,
+			insurance: number,
+			replacementReserve: number,
+			vacancyPercentage: number
+		) {
+			console.log(maintenance);
+			expenses = {
+				maintenance: maintenance,
+				insurance: insurance,
+				replacementReserve: replacementReserve,
+				taxes: calculateTaxes(rent, taxesRate),
+				vacancyPercentage: vacancyPercentage
+			};
+		}
+	};
+}
+
+export const expenses = createExpenses();
