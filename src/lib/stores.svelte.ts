@@ -2,15 +2,15 @@ import type { Expenses, Unit } from '$lib/types';
 
 export function createLoan() {
 	let monthlyLoanPayment = $state(0);
-	let loanDuration = $state(25);
+	let totalLoan = $state(0);
 
 	return {
 		get monthlyLoanPayment() {
 			return monthlyLoanPayment;
 		},
 
-		get loanDuration() {
-			return loanDuration;
+		get totalLoan() {
+			return totalLoan;
 		},
 
 		updateMonthlyPayment(amount: number, annualRate: number, years: number) {
@@ -20,7 +20,7 @@ export function createLoan() {
 				monthlyLoanPayment = Math.round(
 					(amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalPayments))
 				);
-				loanDuration = years;
+				totalLoan = amount;
 			}
 		}
 	};

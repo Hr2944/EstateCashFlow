@@ -46,7 +46,7 @@
 			expenses.expenses,
 			rent.rent,
 			loan.monthlyLoanPayment,
-			realSystemTaxesReduction(loan.loanDuration, expenses.expenses)
+			realSystemTaxesReduction(loan.totalLoan, expenses.expenses)
 		)
 	);
 </script>
