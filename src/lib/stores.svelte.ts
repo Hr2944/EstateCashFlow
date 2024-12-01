@@ -2,19 +2,25 @@ import type { Expenses, Unit } from '$lib/types';
 
 export function createLoan() {
 	let monthlyLoanPayment = $state(0);
+	let loanDuration = $state(25);
 
 	return {
 		get monthlyLoanPayment() {
 			return monthlyLoanPayment;
 		},
 
-		updateMonthlyPayment: (amount: number, annualRate: number, years: number) => {
+		get loanDuration() {
+			return loanDuration;
+		},
+
+		updateMonthlyPayment(amount: number, annualRate: number, years: number) {
 			if (amount !== null && annualRate !== null && years !== null) {
 				const monthlyRate = annualRate / 100 / 12;
 				const totalPayments = years * 12;
 				monthlyLoanPayment = Math.round(
 					(amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalPayments))
 				);
+				loanDuration = years;
 			}
 		}
 	};
@@ -39,7 +45,7 @@ export function createRent() {
 export const rent = createRent();
 
 function calculateTaxes(rent: number, rate: number) {
-	return ((rent / 2) * (rate / 100)) / 2;
+	return (rent / 2) * (rate / 100);
 }
 
 export function createExpenses() {
@@ -64,7 +70,6 @@ export function createExpenses() {
 			replacementReserve: number,
 			vacancyPercentage: number
 		) {
-			console.log(maintenance);
 			expenses = {
 				maintenance: maintenance,
 				insurance: insurance,
