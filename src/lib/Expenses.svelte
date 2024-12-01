@@ -40,4 +40,4 @@
 <label class="block text-sm font-medium text-gray-700" for="taxesRate">Taxes Rate</label>
 <input bind:value={taxesRate} class="mb-2 p-2 border border-gray-300 rounded-md w-full" id="taxesRate" type="number" />
 
-<p class="block font-medium text-gray-700">Taxes: €{expenses.expenses.taxes}</p>
+<p class="block font-medium text-gray-700">Taxes: €{expenses.expenses.taxes.toFixed(2)}</p>
